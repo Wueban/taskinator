@@ -1,32 +1,43 @@
 var formEl = document.querySelector("#task-form")
 var taskToDoEl = document.querySelector("#tasks-to-do");
 
-var createTaskHandler = function (event){
+var taskFormHandler = function (event){
     
     event.preventDefault();
     var taskNAmeInput = document.querySelector("input[name = 'task-name'] ").value;
     var taskTypeInput = document.querySelector("select[name= 'task-type']").value;
    
-   
-// create list item
-    var listItemEl = document.createElement("li");
-    listItemEl.className = "task-item";
-   
-    // create div to hold a task info and add to list item
+   // package up data as an object
+   var taskDataObj = {
+    name : taskNAmeInput,
+    type : taskTypeInput
+   };
 
-    var taskInfoEl = document.createElement("div")
+   //send it as an argument to createtaskel
 
-    // give class name
-    taskInfoEl.className = "task-info";
-
-    //add HTML content to de div
-
-    taskInfoEl.innerHTML = "<h3 class= 'task-name'>" + taskNAmeInput + "</h3> <span class = 'task-type'>" + taskTypeInput + "</span>";
-
-    listItemEl.appendChild(taskInfoEl)
-    // add entire list item to list
-    taskToDoEl.appendChild(listItemEl);
+    createTaskEl(taskDataObj)
     
-    console.dir(listItemEl)
 };
-formEl.addEventListener("submit",  createTaskHandler)
+
+var createTaskEl = function(taskDataObj){
+
+    // create list item
+var listItemEl = document.createElement("li");
+listItemEl.className = "task-item";
+
+// create div to hold a task info and add to list item
+
+var taskInfoEl = document.createElement("div")
+
+// give class name
+taskInfoEl.className = "task-info";
+
+//add HTML content to de div
+
+taskInfoEl.innerHTML = "<h3 class= 'task-name'>" + taskDataObj.name + "</h3> <span class = 'task-type'>" + taskDataObj.type + "</span>";
+
+listItemEl.appendChild(taskInfoEl)
+// add entire list item to list
+taskToDoEl.appendChild(listItemEl);
+}
+formEl.addEventListener("submit",  taskFormHandler)
